@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/semantic/semantic.min.css"> 
+    <title>Demo</title>
+</head>
+<body>
+    <div class="ui fixed inverted menu">
+        <a href="/" class="header item">Accueil</a>
+    </div>
+    <div class="ui main container" style="margin-top: 7em;">
+        <% if(locals.flash && locals.flash.error) { %>
+            <div class="ui negative message"><%= flash.error %></div>
+        <% } else if(locals.flash && locals.flash.success) { %>
+            <div class="ui positive message"><%= flash.success %></div>
+        <% } %>
