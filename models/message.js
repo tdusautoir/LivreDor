@@ -33,13 +33,13 @@ class Message {
     );
   }
 
-  static find(id, callback) {
+  static find(username, callback) {
     connection.query(
-      "SELECT * FROM messages WHERE id = ? LIMIT 1",
-      [id],
+      "SELECT * FROM messages WHERE user = ?",
+      [username],
       (err, rows) => {
         if (err) throw err;
-        callback(new Message(rows[0]));
+        callback(rows.map((row) => new Message(row)));
       }
     );
   }

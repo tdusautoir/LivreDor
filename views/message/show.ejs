@@ -2,6 +2,7 @@
 
 <div class="ui comments">
     <h3 class="ui dividing header">Commentaires de <%= message.user %></h3>
+    <% for(message of messages){ %>
         <div class="comment">
             <div class="content">
                 <div class="metadata">
@@ -9,9 +10,10 @@
                     <%= message.created_at.fromNow() %>
                     </div>
                 </div>
-                <div class="test"><a href="/message/<%= message.id %>"><%= message.content %></a></div>
+                <div class="test"><a href="/message/<%= message.user %>"><%= message.content %></a></div>
             </div>
         </div>
+    <% } %>
 </div>
 
 <%- include('../pages/footer') %>

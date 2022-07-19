@@ -1,31 +1,52 @@
 <%- include('./header') %>
 
-<form action="/" method="post" class="ui form">
+<% if(locals.user){ %>
+    <p>Bonjour <%= locals.user %></p>
+    <form action="/action/logout" method="post" class="ui form">
+        <button type="submit" class="ui red button" style="margin-bottom: 50px;">
+            Deconnexion
+        </button>
+    </form>
+    <form action="/" method="post" class="ui form">
+        <input type="hidden" value=<%= locals.user %>>
+        <div class="field">
+            <label for="message">Message</label>
+            <textarea name="message" id="message"></textarea>
+        </div>
+        <button type="submit" class="ui blue labeled submit icon button">
+            <i class="icon edit"></i>Envoyer
+        </button>
+    </form>
+<% } else { %>
+    <form action="/user" method="post" class="ui form">
     <div class="field">
         <label for="message">Nom</label>
         <input type="test" name="user" id="user"></textarea>
     </div>
-    <div class="field">
-        <label for="message">Message</label>
-        <textarea name="message" id="message"></textarea>
-    </div>
-    <button type="submit" class="ui blue labeled submit icon button">
-        <i class="icon edit"></i>Envoyer
+    <button type="submit" class="ui blue button">
+        S'identifier
     </button>
 </form>
+<% } %> 
 
 <div class="ui comments">
     <h3 class="ui dividing header">Commentaires</h3>
-    <% for(message of messages){ %>
-        <div class="comment">
-            <div class="content">
-                <div class="metadata">
-                    <div class="date">
-                    <%= message.created_at.fromNow() %>
+    <% if(messages) { %>
+        <% for(message of messages){ %>
+            <div class="comment">
+                <div class="content">
+                    <div class="metadata">
+                        <div class="date">
+                        <%= message.created_at.fromNow() %>
+                        </div>
                     </div>
+                    <div class="test"><a href="/message/<%= message.user %>"><%= message.user %></a> - <%= message.content %></div>
                 </div>
-                <div class="test"><a href="/message/<%= message.id %>"><%= message.user %></a> - <%= message.content %></div>
             </div>
+        <% } %>
+    <% } else { %>
+        <div class="comment">
+            Aucun message n'a encore été publié.
         </div>
     <% } %>
 </div>
